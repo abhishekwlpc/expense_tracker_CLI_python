@@ -1011,17 +1011,3 @@ More complex projects will follow.
 **Build → Learn → Improve → Repeat. 🚀**
 
 ````
-
-### One small correction before you paste it
-
-Your code currently has:
-
-```python
-ide = ide = str(uuid.uuid4())
-````
-
-Change that to:
-
-```python
-ide = str(uuid.uuid4())
-```
