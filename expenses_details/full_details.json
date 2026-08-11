@@ -1,8 +1,14 @@
 [
     {
-        "Id": "12f86664-c9f4-44cc-bad8-2ff7e6dd4872",
-        "Title": "dfsdf",
-        "Date": "sdfsdf",
-        "Amount": 232.0
+        "Id": "16aa1127-c1df-42b6-80fb-8e92eaba43fa",
+        "Title": "Education",
+        "Date": "2026-01-01",
+        "Amount": 1500.0
+    },
+    {
+        "Id": "6463e0eb-e989-4585-a0e6-37e93a909337",
+        "Title": "university-registration-fee",
+        "Date": "2026-05-02",
+        "Amount": 200.0
     }
 ]
