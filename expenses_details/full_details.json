@@ -1,14 +1,14 @@
 [
     {
-        "Id": "16aa1127-c1df-42b6-80fb-8e92eaba43fa",
+        "Id": "10b51aeb-f6d0-479b-b261-2bc3b3db1536",
         "Title": "Education",
-        "Date": "2026-01-01",
-        "Amount": 1500.0
+        "Date": "2000-01-01",
+        "Amount": 200.0
     },
     {
-        "Id": "6463e0eb-e989-4585-a0e6-37e93a909337",
-        "Title": "university-registration-fee",
-        "Date": "2026-05-02",
-        "Amount": 200.0
+        "Id": "13920b05-b87e-4ad2-be71-b57716d2a6d7",
+        "Title": "Education",
+        "Date": "2026-03-04",
+        "Amount": 2000.0
     }
 ]
