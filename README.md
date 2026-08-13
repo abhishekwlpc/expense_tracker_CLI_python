@@ -2,76 +2,54 @@
 
 A command-line expense tracking application built with Python.
 
-This is my first independent Python project created to move from learning Python syntax and concepts to building a working application. The project is being developed through multiple versions so that each version improves the previous implementation rather than replacing it with a completely different system.
+This is my first independent Python project after completing a structured Python learning path. The purpose of this project was not to build a production-grade financial system, but to practice the transition from **learning Python concepts** to **designing, building, testing, debugging, and refactoring a working application independently**.
 
-## 📌 Current Version
+The project was intentionally developed through multiple versions. Each version improved the previous implementation rather than replacing it with a completely different system.
 
-**V3 — Storage Refactoring & Application Flow**
+---
 
-V3 focuses on separating JSON persistence from individual expense operations.
+# 📌 Current Version
 
-The project now uses:
+## V4 — Validation, Error Handling & Robustness
 
-- `load_expenses()` to read expense data
-- `save_expenses(expenses)` to persist expense data
-- A **LOAD → MODIFY → SAVE** pattern for operations that change data
-- Local variables instead of a module-level shared `expense_list`
+**V4 is the final planned version of Project 1 for now.**
 
-V3 intentionally does not introduce databases, web frameworks, classes, AI, or other advanced technologies.
+The application now includes:
 
-## ✨ Features
-
-- Add expenses
-- View saved expenses
-- Calculate total spending
-- Delete an individual expense
-- Delete all expenses with confirmation
-- Persistent JSON storage
+- Modular application structure
+- JSON persistence
+- Centralized loading and saving
+- LOAD → MODIFY → SAVE data flow
 - UUID-based expense IDs
-- Date creation using Python's `datetime`
-- Separate CLI entry point and user-action module
-- Centralized JSON loading and saving
-- LOAD → MODIFY → SAVE application flow
+- Date validation using `datetime`
+- Expense-title validation
+- Expense-amount validation
+- Custom exceptions
+- Empty-list handling
+- Non-existent expense ID handling
+- Delete-all confirmation
+- JSON parsing error reporting
+- More Pythonic iteration using direct iteration and `enumerate()`
 
-## 🛠️ Technologies Used
+The project is intentionally being frozen here so that the next learning stage can focus on a **new and more challenging Python application** instead of endlessly polishing the same CLI.
 
-- Python 3
-- `json`
-- `uuid`
-- `datetime`
-- File I/O
-- Git / GitHub
+---
 
-No third-party Python packages are required.
+# ✨ Features
 
-## 📂 Project Structure
+## 1. Add Expense
 
-```text
-expense_tracker_CLI_python/
-│
-├── expenses_details/
-│   └── full_details.json
-│
-├── main.py
-├── user_action_methods.py
-└── README.md
-```
+Users can add an expense by providing:
 
-### `main.py`
+- Expense title
+- Month
+- Day
+- Year
+- Amount
 
-Acts as the CLI entry point. It displays the menu and delegates operations to `user_action_methods.py`.
+Each expense receives a UUID-based identifier.
 
-### `user_action_methods.py`
-
-Contains the current implementations for loading and saving expenses, adding, viewing, calculating, and deleting expenses.
-
-### `expenses_details/full_details.json`
-
-Stores the expense records persistently as a JSON array.
-
-## 🧩 Data Structure
-
-Each expense is stored as a dictionary:
+Example data:
 
 ```json
 {
@@ -82,25 +60,165 @@ Each expense is stored as a dictionary:
 }
 ```
 
-The JSON file contains a list of these expense objects.
+---
 
-## 🚀 Running the Application
+## 2. View Expenses
 
-### Prerequisites
+The application loads the stored expense collection and displays the saved expenses.
+
+---
+
+## 3. Calculate Total Spending
+
+The application loads the expense collection and calculates the total amount spent.
+
+---
+
+## 4. Delete an Expense
+
+Users can enter an expense ID.
+
+The application checks whether the ID exists before saving a deletion.
+
+If the ID is not found, the application reports that the expense does not exist.
+
+---
+
+## 5. Delete All Expenses
+
+The application requires the user to explicitly type:
+
+```text
+confirm
+```
+
+before removing all expenses.
+
+If the list is already empty, the application reports that there are no expenses to delete.
+
+---
+
+# 🛠️ Technologies Used
+
+- Python 3
+- `json`
+- `uuid`
+- `datetime`
+- File I/O
+- Custom Python exceptions
+- Git / GitHub
+
+No database, web framework, AI framework, or third-party service is required.
+
+---
+
+# 📂 Project Structure
+
+```text
+expense_tracker_CLI_python/
+│
+├── expenses_details/
+│   └── full_details.json
+│
+├── main.py
+├── user_action_methods.py
+├── custom_exceptions.py
+└── README.md
+```
+
+## `main.py`
+
+Acts as the CLI entry point.
+
+Its primary responsibility is to:
+
+- Display the menu
+- Read the user's operation
+- Delegate the selected operation to `user_action_methods.py`
+
+The current menu uses Python's `match` statement.
+
+## `user_action_methods.py`
+
+Contains the application's expense operations and JSON persistence functions.
+
+Important functions include:
+
+```text
+load_expenses()
+save_expenses(expenses)
+add_expense()
+view_expenses_list()
+get_total_spent_amount()
+delete_expense_from_list()
+delete_all_expenses()
+```
+
+## `custom_exceptions.py`
+
+Contains custom exceptions used for specific validation failures:
+
+```text
+InvalidTextError
+InvalidAmountError
+```
+
+## `expenses_details/full_details.json`
+
+Stores the expense records as JSON.
+
+---
+
+# 🧩 Data Structure
+
+The application stores expenses as a list of dictionaries.
+
+Example:
+
+```json
+[
+    {
+        "Id": "16aa1127-c1df-42b6-80fb-8e92eaba43fa",
+        "Title": "Education",
+        "Date": "2026-01-01",
+        "Amount": 1500.0
+    },
+    {
+        "Id": "6463e0eb-e989-4585-a0e6-37e93a909337",
+        "Title": "University registration",
+        "Date": "2026-05-02",
+        "Amount": 200.0
+    }
+]
+```
+
+---
+
+# 🚀 Running the Application
+
+## Prerequisites
 
 Install Python 3.
+
+Check the version:
 
 ```bash
 python --version
 ```
 
-### Run
+## Run
+
+From the project directory:
 
 ```bash
 python main.py
 ```
 
-## 🖥️ Application Menu
+---
+
+# 🖥️ Application Menu
+
+The application currently supports:
 
 ```text
 1 - Add expense
@@ -111,82 +229,66 @@ python main.py
 q - Quit
 ```
 
+---
+
 # 🔄 Version History
 
 ## V1 — Initial Working Implementation
 
-Focused on making the application functional:
+The first version focused on getting the application working.
 
-- Adding expenses
-- Viewing expenses
-- Calculating total spending
-- Deleting expenses
+Implemented:
+
+- Add expense
+- View expenses
+- Calculate total
+- Delete expense
 - JSON persistence
-- UUID-based IDs
+- UUID generation
 - Basic exception handling
 
-Most application logic was initially inside the main CLI loop.
+Most functionality initially existed inside one large `while` loop in `main.py`.
+
+### Main lesson
+
+> **I can take a simple requirement and turn it into a functioning Python application.**
+
+---
 
 ## V2 — Modular CLI Upgrade
 
-V2 introduced the first structural refactoring:
+V2 introduced the first significant structural improvement.
 
-- Moved expense operations into `user_action_methods.py`
-- Kept `main.py` focused on menu handling
-- Used a `match` statement for menu selection
-- Added delete-all expenses
-- Added confirmation before deleting all expenses
-- Improved date creation with `datetime.date()`
-- Added detection for non-existent expense IDs
-
-Architecture:
+The expense operations were moved from `main.py` into:
 
 ```text
-main.py
-   ↓
 user_action_methods.py
-   ↓
-full_details.json
 ```
+
+Additional improvements included:
+
+- Python `match` statement
+- Date construction with `datetime.date()`
+- Delete-all functionality
+- Delete-all confirmation
+- Better feedback when a requested expense ID does not exist
+
+### Main lesson
+
+> **A program can be split into modules with clearer responsibilities.**
+
+---
 
 ## V3 — Storage Refactoring
 
-V3 focused on separating **application operations** from **JSON persistence**.
+V3 introduced two important persistence functions:
 
-### New storage functions
-
-```python
+```text
 load_expenses()
 save_expenses(expenses)
 ```
 
-### `load_expenses()`
-
-Responsible for reading the JSON file and returning the expense list.
-
-```text
-JSON file
-    ↓
-load_expenses()
-    ↓
-Python list
-```
-
-### `save_expenses(expenses)`
-
-Responsible for writing the supplied expense list to the JSON file.
-
-```text
-Python list
-    ↓
-save_expenses(expenses)
-    ↓
-JSON file
-```
-
-### LOAD → MODIFY → SAVE
-
-Operations that modify data now follow this general pattern:
+The application moved toward a consistent data flow:
 
 ```text
 LOAD
@@ -196,195 +298,334 @@ MODIFY
 SAVE
 ```
 
-For example, adding an expense follows:
+Example:
 
 ```text
+Add expense
+    ↓
 load_expenses()
-      ↓
+    ↓
 append new expense
-      ↓
+    ↓
 save_expenses(expenses)
 ```
 
-Deleting an expense follows the same pattern, and deleting all expenses loads the list, clears it, and saves the empty list.
+The same pattern was applied to deletion and delete-all operations.
 
-## 🏗️ Current V3 Architecture
+This reduced duplicated JSON access and removed the need for a shared module-level expense list.
 
-```text
-                    ┌─────────────────┐
-                    │     main.py     │
-                    │   CLI / Menu    │
-                    └────────┬────────┘
-                             │
-                             ▼
-                ┌────────────────────────┐
-                │ user_action_methods.py │
-                │                        │
-                │ Application Operations │
-                │          +             │
-                │ Storage Functions      │
-                └───────────┬────────────┘
-                            │
-                 ┌──────────┴──────────┐
-                 ▼                     ▼
-        load_expenses()       save_expenses(expenses)
-                 │                     │
-                 └──────────┬──────────┘
-                            ▼
-                 ┌──────────────────────┐
-                 │   full_details.json  │
-                 │    Persistent Data   │
-                 └──────────────────────┘
-```
+### Main lesson
 
-V3 remains intentionally simple. There is still no database, FastAPI, Flask, authentication, AI, Docker, or cloud deployment.
+> **Storage responsibility and application responsibility should be separated.**
 
-## 📊 V2 → V3 Improvements
+---
 
-| Area | V2 | V3 |
-|---|---|---|
-| Module separation | ✅ | ✅ |
-| JSON reading | Repeated in multiple functions | Centralized through `load_expenses()` |
-| JSON writing | Repeated in multiple functions | Centralized through `save_expenses()` |
-| Add operation | Mixed storage/application logic | LOAD → MODIFY → SAVE |
-| Delete operation | Mixed storage/application logic | LOAD → MODIFY → SAVE |
-| Delete-all operation | Direct JSON writing | LOAD → MODIFY → SAVE |
-| Global expense list | Used previously | Removed from module-level design |
-| Total calculation | Direct JSON access | Uses `load_expenses()` |
-| View operation | Direct JSON access | Uses `load_expenses()` |
+## V4 — Validation, Error Handling & Robustness
 
-## ✅ What V3 Successfully Achieved
+V4 focused on making the existing application harder to break.
 
-The main purpose of V3 was not to add features. It was to learn that a function should have a clear responsibility.
+### Input validation
+
+The application now validates:
+
+- Blank expense titles
+- Numeric expense amounts
+- Positive expense amounts
+- Invalid dates through `datetime.date()`
+
+### Custom exceptions
+
+Two validation exceptions were introduced:
 
 ```text
-load_expenses()
-→ reads data
-
-save_expenses(expenses)
-→ writes data
-
-add_expense()
-→ creates and adds an expense
-
-delete_expense()
-→ removes an expense
-
-calculate_total()
-→ calculates a result
+InvalidTextError
+InvalidAmountError
 ```
 
-The project also introduced the important engineering pattern:
+### Storage error handling
+
+Malformed JSON is detected using `JSONDecodeError`.
+
+The application reports:
+
+- The parsing error message
+- The line number
+- The column number
+
+The project intentionally does **not** attempt automatic repair of corrupted JSON.
+
+This was an important design decision: corrupted storage should not automatically be rewritten without a deliberate recovery strategy.
+
+### Empty-state handling
+
+The application handles:
+
+- No expenses available for deletion
+- Non-existent expense IDs
+- Delete-all confirmation
+
+### Pythonic improvements
+
+The project also moved toward:
+
+- Direct iteration over collection items
+- `enumerate()` when both index and item are genuinely required
+
+### Main lesson
+
+> **Software should distinguish valid input, invalid input, missing data, corrupted data, and normal empty states.**
+
+---
+
+# 🏗️ Current Architecture
+
+The final project remains intentionally simple:
+
+```text
+                 ┌─────────────────┐
+                 │     main.py     │
+                 │   CLI / Menu    │
+                 └────────┬────────┘
+                          │
+                          ▼
+              ┌────────────────────────┐
+              │ user_action_methods.py │
+              │                        │
+              │ Expense Operations     │
+              │ + JSON Persistence     │
+              └───────────┬────────────┘
+                          │
+                 ┌────────┴─────────┐
+                 ▼                  ▼
+        load_expenses()     save_expenses(expenses)
+                 │                  │
+                 └────────┬─────────┘
+                          ▼
+               ┌──────────────────────┐
+               │   full_details.json  │
+               │    Persistent Data   │
+               └──────────────────────┘
+```
+
+This architecture is deliberately small.
+
+There is no:
+
+- Database
+- REST API
+- Authentication
+- Frontend
+- Docker
+- Cloud deployment
+- AI service
+- FastAPI
+- Flask
+
+Those belong to later projects.
+
+---
+
+# 🧠 Important Engineering Pattern
+
+One of the most important concepts learned during this project was:
 
 ```text
 LOAD → MODIFY → SAVE
 ```
 
-## ⚠️ V3 Known Limitations
+This separates the idea of:
 
-V3 is a **learning checkpoint**, not a production-quality implementation.
+```text
+Reading persistent state
+```
 
-Remaining issues include:
+from:
 
-- Exception handling is still too broad in places.
-- Malformed JSON handling needs a more deliberate strategy.
-- Some file/path handling can be improved.
-- Input validation is incomplete.
-- Some loops can be made more Pythonic.
-- Some function names describe implementation details rather than intent.
-- Expense amounts currently use `float`.
+```text
+Changing application state
+```
 
-These are deliberately carried forward rather than hiding them with unnecessary complexity.
+and:
 
-## 🧪 Current Testing
+```text
+Writing persistent state
+```
 
-The project is currently tested manually through the CLI.
+This simple pattern provides a foundation for understanding larger systems later.
 
-Important scenarios include:
+---
 
-### Valid input
+# 🧪 Testing Approach
 
-- Add a normal expense
-- Add multiple expenses
+The application was tested manually through the CLI.
+
+## Normal operations
+
+- Add an expense
 - View expenses
 - Calculate total
 - Delete an existing expense
-- Delete all expenses after confirmation
+- Delete a non-existent expense
+- Delete all expenses
+- Cancel delete-all
+- Quit application
 
-### Invalid input
+## Invalid input
 
-- Empty title
+- Blank title
+- Whitespace-only title
 - Non-numeric amount
-- Negative amount
 - Zero amount
-- Invalid date
-- Invalid menu option
-- Invalid expense ID
+- Negative amount
+- Invalid month
+- Invalid day
+- Invalid year
+- Unknown expense ID
 
-### File problems
+## Storage problems
 
 - Missing JSON file
-- Empty JSON file
 - Malformed JSON
-- Unexpected JSON structure
-- File permission problems
 
-# 🎯 V4 — Robustness, Validation & Error Handling
+The purpose of these tests was to intentionally exercise both normal and failure paths.
 
-V4 will keep the same CLI + JSON architecture. No database, web framework, AI, or other advanced technology will be introduced yet.
+---
 
-### V4 goals
+# ⚠️ Known Limitations
 
-1. **Strong input validation**
-   - Expense title
-   - Amount
-   - Date
-   - Menu option
-   - Expense ID
-   - Confirmation input
+This project is **not production financial software**.
 
-2. **Better exception handling**
-   - Use specific exceptions deliberately
-   - Reduce broad `except Exception`
-   - Separate user-input errors from storage errors
+Some limitations remain intentionally.
 
-3. **Reliable JSON validation**
-   - Distinguish missing data from corrupted data
-   - Validate that loaded JSON has the expected structure
+## 1. JSON storage
 
-4. **Better empty-data behavior**
-   - Graceful handling of an empty expense list
-   - Useful output when there is nothing to display, calculate, or delete
+JSON is sufficient for this learning project but would not be appropriate for a larger multi-user application.
 
-5. **Cleaner CLI behavior**
-   - Clearly reject unsupported menu choices
-   - Preserve intentional quit behavior
+## 2. No automated test suite
 
-6. **Remove unnecessary complexity**
-   - Simplify index-based loops where indexes are not needed
-   - Remove redundant conversions and handlers
-   - Improve naming and readability
+The project was primarily validated through manual CLI testing.
 
-7. **Edge-case testing**
-   - Deliberately test invalid user input and damaged storage states
+A future project can introduce automated testing in a more appropriate context.
 
-## 🧠 V3 → V4 Learning Progression
+## 3. No advanced schema validation
+
+The project uses simple JSON persistence and does not implement a full data-validation framework.
+
+## 4. Financial precision
+
+Amounts are represented using Python `float`.
+
+A production financial system would require more careful treatment of monetary precision.
+
+## 5. No concurrency or transactional guarantees
+
+This is a local single-user CLI application.
+
+---
+
+# 📊 V1 → V4 Progression
+
+| Area | V1 | V2 | V3 | V4 |
+|---|---|---|---|---|
+| Working CLI | ✅ | ✅ | ✅ | ✅ |
+| Modular structure | ❌ | ✅ | ✅ | ✅ |
+| `match` menu | ❌ | ✅ | ✅ | ✅ |
+| Date validation | ❌ | ✅ | ✅ | ✅ |
+| Delete-all | ❌ | ✅ | ✅ | ✅ |
+| Delete ID verification | ❌ | ✅ | ✅ | ✅ |
+| Centralized loading | ❌ | ❌ | ✅ | ✅ |
+| Centralized saving | ❌ | ❌ | ✅ | ✅ |
+| LOAD → MODIFY → SAVE | ❌ | ❌ | ✅ | ✅ |
+| Blank-title validation | ❌ | ❌ | ❌ | ✅ |
+| Amount validation | ❌ | ❌ | ❌ | ✅ |
+| Custom validation exceptions | ❌ | ❌ | ❌ | ✅ |
+| JSON parse error reporting | ❌ | ❌ | ❌ | ✅ |
+| Pythonic iteration | ❌ | Partial | Partial | ✅ |
+| Edge-case handling | Basic | Improved | Improved | Stronger |
+
+---
+
+# 📈 Final Project Assessment
+
+## Project 1 — Final V4 Assessment
+
+| Category | Score |
+|---|---:|
+| Functionality | 9/10 |
+| Python fundamentals | 8.5/10 |
+| File handling | 8.5/10 |
+| Error handling | 7.5/10 |
+| Input validation | 8.5/10 |
+| Code organization | 8.5/10 |
+| Data modeling | 7.5/10 |
+| Maintainability | 8/10 |
+| Pythonic style | 8.5/10 |
+| Independent problem solving | 9.5/10 |
+
+### Overall learning-project score
+
+# **8.5 / 10**
+
+The most important result is not the number.
+
+This project demonstrates a transition from:
+
+> **“I know Python.”**
+
+to:
+
+> **“I can independently build and improve a Python application.”**
+
+---
+
+# 🧠 What I Learned
+
+Through the four versions, I practiced:
+
+- Python fundamentals
+- Modules
+- Functions
+- Lists and dictionaries
+- File I/O
+- JSON
+- UUIDs
+- Datetime handling
+- Exception handling
+- Custom exceptions
+- Input validation
+- Data persistence
+- State modification
+- Refactoring
+- Debugging
+- Edge-case thinking
+- Git branching
+- Iterative software development
+
+More importantly, I practiced a development cycle:
 
 ```text
-V1
-Make it work
-   ↓
-V2
-Separate the application into modules
-   ↓
-V3
-Separate storage from application operations
-   ↓
-V4
-Make the application robust
+Understand
+    ↓
+Design
+    ↓
+Code
+    ↓
+Test
+    ↓
+Debug
+    ↓
+Review
+    ↓
+Refactor
+    ↓
+Improve
 ```
 
-## 🚀 Project-Based Python Progression
+---
+
+# 🚀 Project-Based Python Progression
+
+Python Express Tracker is the first project in a larger progression:
 
 ```text
 Project 1
@@ -418,67 +659,90 @@ Project 10
 Full-Stack AI Platform
 ```
 
-## 📈 Current Project Status
+---
 
-| Item | Status |
-|---|---|
-| V1 initial implementation | ✅ Complete |
-| V2 module separation | ✅ Complete |
-| V3 storage refactoring | ✅ Complete checkpoint |
-| Add expenses | ✅ Complete |
-| View expenses | ✅ Complete |
-| Calculate total | ✅ Complete |
-| Delete expense | ✅ Complete |
-| Delete-all confirmation | ✅ Complete |
-| UUID IDs | ✅ Complete |
-| JSON persistence | ✅ Complete |
-| Centralized JSON loading | ✅ Complete |
-| Centralized JSON saving | ✅ Complete |
-| LOAD → MODIFY → SAVE | ✅ Complete |
-| Robust exception strategy | 🔄 V4 |
-| Strong input validation | 🔄 V4 |
-| JSON structure validation | 🔄 V4 |
-| Edge-case testing | 🔄 V4 |
-| Automated tests | 🔄 Future |
-| Database | 🔄 Future |
-| Web API | 🔄 Future |
+# 🎯 Is Project 1 Finished?
 
-## 🧠 Development Philosophy
+**Yes.**
 
-The development loop is:
+For the purpose of this learning progression, V4 should be considered the **final version of Project 1 for now**.
+
+A V5 could certainly be created, but it is **not recommended at this stage**.
+
+Adding categories, search, reports, CSV export, SQLite, classes, or other features would likely turn V5 into feature creep rather than meaningful progression for the current learning goal.
+
+The recommended engineering decision is:
+
+```text
+Finish Project 1
+      ↓
+Commit V4
+      ↓
+Tag/version it
+      ↓
+Move to Project 2
+```
+
+Future robustness improvements can be revisited later if a later project makes them relevant.
+
+---
+
+# 🚀 Next Project
+
+## Project 2 — Smart File Organizer
+
+The next project will introduce a different class of Python problems:
+
+```text
+pathlib
+   ↓
+Directories
+   ↓
+File extensions
+   ↓
+File discovery
+   ↓
+File movement
+   ↓
+Duplicate names
+   ↓
+Safe operations
+   ↓
+Filesystem error handling
+```
+
+The project will continue using the same learning loop:
 
 ```text
 Understand
-    ↓
-Design
-    ↓
-Code
-    ↓
-Test
-    ↓
-Debug
-    ↓
-Review
-    ↓
-Refactor
-    ↓
-Improve
-    ↓
-Build Something Harder
+→ Design
+→ Code
+→ Test
+→ Debug
+→ Review
+→ Refactor
 ```
 
-The goal is not simply to know Python. The goal is to become capable of independently designing, building, debugging, reviewing, and improving software.
+The architecture will be designed from requirements rather than given upfront.
 
-## 👨‍💻 Author
+---
+
+# 👨‍💻 Author
 
 **Abhishek**
 
 Software Engineering & AI Engineering Learner
 
-## ⭐ Final Note
+---
 
-Python Express Tracker is intentionally a small application.
+# ⭐ Final Note
 
-Its real purpose is to build engineering habits before moving into larger Python, API, and AI systems.
+Python Express Tracker is intentionally small.
 
-**Build → Test → Understand → Refactor → Improve → Repeat. 🚀**
+Its purpose was to establish the engineering foundation needed for larger Python and AI systems.
+
+The project represents the first step from:
+
+**Learning Python → Building Python software.**
+
+**Build → Test → Understand → Refactor → Improve → Build Something Harder. 🚀**
