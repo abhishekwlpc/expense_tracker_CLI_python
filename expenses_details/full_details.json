@@ -10,5 +10,23 @@
         "Title": "Education",
         "Date": "2026-03-04",
         "Amount": 2000.0
+    },
+    {
+        "Id": "ae54423e-9f98-429d-941b-ab28783a57f3",
+        "Title": "sfsdf",
+        "Date": "2002-04-04",
+        "Amount": 0.0
+    },
+    {
+        "Id": "a0ec7246-3f55-4e5c-9726-1b90ba3d78b2",
+        "Title": "sfsfsd",
+        "Date": "2002-03-03",
+        "Amount": 2323.0
+    },
+    {
+        "Id": "a583636f-e7ac-4b71-a91f-2a527e2b1b20",
+        "Title": "fsfsdf",
+        "Date": "2002-02-03",
+        "Amount": 323.0
     }
 ]
